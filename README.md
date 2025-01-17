@@ -1,17 +1,21 @@
 # AuraAI
-AuraAI is a chatbot and perfume recommendation backend built with Spring Boot.
+AuraAI ist eine Anwendung, die einen Chatbot und ein Parfüm-Empfehlungssystem umfasst, mit einem entwickelten Backend in Spring Boot und einem Frontend in HTML, CSS und JavaScript.
 
-## Features
-- Chatbot that answers user queries.
-- Perfume recommendations based on scent types.
+## Funktionen
+- Ein Chatbot, der Benutzeranfragen beantwortet.
+- Parfümempfehlungen basierend auf Dufttypen.
+- Eine interaktive Benutzeroberfläche zur Navigation und Nutzung der Funktionen.
 
-## How to Run
-1. Clone the repository: `git clone https://github.com/albagash/AuraAI.git`
-2. Navigate to the project folder and run: `mvn spring-boot:run`
+## So starten Sie das Projekt
+1. Klonen Sie das Repository: `git clone https://github.com/albagash/AuraAI.git`
+2. Navigieren Sie zum Projektordner.
+   - **Backend:** Führen Sie den Befehl aus: `mvn spring-boot:run`
+   - **Frontend:** Öffnen Sie die Datei `index.html` aus dem Ordner `static` in Ihrem Browser.
 
-## API Endpoints
-- `/api/chatbot` - Interact with the chatbot.
-- `/api/recommendations` - Get perfume recommendations.
+## API-Endpunkte
+- `/api/chatbot` - Interagieren Sie mit dem Chatbot.
+- `/api/recommendations` - Erhalten Sie Parfümempfehlungen.
 
-## Technologies Used
-- Java, Spring Boot, Swagger
+## Verwendete Technologien
+- **Backend:** Java, Spring Boot, Swagger
+- **Frontend:** HTML, CSS, JavaScript
