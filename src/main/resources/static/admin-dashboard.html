@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - AromaSphere</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #0f172a;
+            color: #f1f5f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #1e293b;
+            padding: 20px;
+            text-align: center;
+            color: #38bdf8;
+            font-size: 2rem;
+            font-weight: bold;
+            border-bottom: 2px solid #38bdf8;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .section {
+            background-color: #1e293b;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .section h2 {
+            color: #38bdf8;
+            margin-bottom: 15px;
+        }
+
+        .section input, .section textarea, .section select {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1rem;
+            border: none;
+            background-color: #0f172a;
+            color: #f1f5f9;
+        }
+
+        .section button {
+            padding: 10px;
+            background-color: #38bdf8;
+            color: #0f172a;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .section button:hover {
+            background-color: #0ea5e9;
+        }
+
+        .product-list, .user-list {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .item {
+            background-color: #0f172a;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            color: #f1f5f9;
+            text-align: center;
+        }
+
+        .item img {
+            width: 100%;
+            max-height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .item button {
+            margin-top: 10px;
+        }
+
+        footer {
+            background-color: #1e293b;
+            text-align: center;
+            padding: 15px;
+            color: #f1f5f9;
+            margin-top: 20px;
+        }
+
+        .filter-section {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .filter-section input {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+<header>
+    Admin Dashboard
+</header>
+<div class="container">
+    <div class="section">
+        <h2>Add Perfume</h2>
+        <input type="text" id="perfumeName" placeholder="Perfume Name">
+        <input type="text" id="perfumeBrand" placeholder="Brand">
+        <input type="number" id="perfumePrice" placeholder="Price">
+        <input type="text" id="perfumeImageUrl" placeholder="Image URL">
+        <textarea id="perfumeDescription" placeholder="Description"></textarea>
+        <button onclick="addPerfume()">Add Perfume</button>
+        <p id="perfumeSuccess" class="success-message" style="display:none;">Perfume added successfully!</p>
+        <p id="perfumeError" class="error-message" style="display:none;">Failed to add perfume. Try again!</p>
+    </div>
+    <div class="section">
+        <h2>Manage Perfumes</h2>
+        <div class="filter-section">
+            <input type="text" id="perfumeSearch" placeholder="Search perfumes..." onkeyup="filterPerfumes()">
+        </div>
+        <div class="product-list" id="productList">
+            <!-- Perfumes will be displayed here -->
+        </div>
+    </div>
+    <div class="section">
+        <h2>Manage Users</h2>
+        <div class="filter-section">
+            <input type="text" id="userSearch" placeholder="Search users..." onkeyup="filterUsers()">
+        </div>
+        <div class="user-list" id="userList">
+            <!-- Users will be displayed here -->
+        </div>
+    </div>
+</div>
+<footer>
+    &copy; 2024 AromaSphere. All Rights Reserved.
+</footer>
+<script>
+    let perfumes = [];
+    let users = [];
+
+    async function loadPerfumes() {
+        try {
+            const response = await fetch("/api/perfumes");
+            if (!response.ok) throw new Error("Failed to fetch perfumes");
+            perfumes = await response.json();
+            renderItems(perfumes, "productList", deletePerfume);
+        } catch (error) {
+            document.getElementById("productList").innerHTML = "<p class='error-message'>Failed to load perfumes. Try again!</p>";
+        }
+    }
+
+    async function loadUsers() {
+        try {
+            const response = await fetch("/api/users");
+            if (!response.ok) throw new Error("Failed to fetch users");
+            users = await response.json();
+            renderItems(users, "userList", deleteUser);
+        } catch (error) {
+            document.getElementById("userList").innerHTML = "<p class='error-message'>Failed to load users. Try again!</p>";
+        }
+    }
+
+    function renderItems(items, listId, deleteFunction) {
+        const list = document.getElementById(listId);
+        list.innerHTML = "";
+        items.forEach(item => {
+            const div = document.createElement("div");
+            div.className = "item";
+            div.innerHTML = `
+                <h3>${item.name || item.username}</h3>
+                <p>${item.brand || item.email}</p>
+                ${item.price ? `<p><strong>Price:</strong> $${item.price}</p>` : ""}
+                ${item.description ? `<p>${item.description}</p>` : ""}
+                <button onclick="${deleteFunction.name}(${item.id})">Delete</button>
+            `;
+            list.appendChild(div);
+        });
+    }
+
+    function filterPerfumes() {
+        const query = document.getElementById("perfumeSearch").value.toLowerCase();
+        const filtered = perfumes.filter(p => p.name.toLowerCase().includes(query) || p.brand.toLowerCase().includes(query));
+        renderItems(filtered, "productList", deletePerfume);
+    }
+
+    function filterUsers() {
+        const query = document.getElementById("userSearch").value.toLowerCase();
+        const filtered = users.filter(u => u.username.toLowerCase().includes(query) || u.email.toLowerCase().includes(query));
+        renderItems(filtered, "userList", deleteUser);
+    }
+
+    async function addPerfume() {
+        const perfume = {
+            name: document.getElementById("perfumeName").value,
+            brand: document.getElementById("perfumeBrand").value,
+            price: document.getElementById("perfumePrice").value,
+            imageUrl: document.getElementById("perfumeImageUrl").value,
+            description: document.getElementById("perfumeDescription").value,
+        };
+        try {
+            const response = await fetch("/api/perfumes", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(perfume),
+            });
+            if (!response.ok) throw new Error("Failed to add perfume");
+            document.getElementById("perfumeSuccess").style.display = "block";
+            setTimeout(() => {
+                document.getElementById("perfumeSuccess").style.display = "none";
+            }, 3000);
+            loadPerfumes();
+        } catch (error) {
+            document.getElementById("perfumeError").style.display = "block";
+            setTimeout(() => {
+                document.getElementById("perfumeError").style.display = "none";
+            }, 3000);
+        }
+    }
+
+    async function deletePerfume(id) {
+        try {
+            const response = await fetch(`/api/perfumes/${id}`, { method: "DELETE" });
+            if (!response.ok) throw new Error("Failed to delete perfume");
+            loadPerfumes();
+        } catch (error) {
+            console.error("Error deleting perfume:", error);
+        }
+    }
+
+    async function deleteUser(id) {
+        try {
+            const response = await fetch(`/api/users/${id}`, { method: "DELETE" });
+            if (!response.ok) throw new Error("Failed to delete user");
+            loadUsers();
+        } catch (error) {
+            console.error("Error deleting user:", error);
+        }
+    }
+
+    loadPerfumes();
+    loadUsers();
+</script>
+</body>
+</html>

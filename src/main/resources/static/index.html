@@ -1,0 +1,1798 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AromaSphere</title>
+    <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #0f172a;
+            color: #f1f5f9;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: #1e293b;
+        }
+
+        header nav a {
+            color: #f1f5f9;
+            text-decoration: none;
+            margin-right: 20px;
+            font-size: 18px;
+        }
+
+        header nav a:hover {
+            color: #38bdf8;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .auth-buttons button {
+            padding: 10px 20px;
+            background-color: #38bdf8;
+            border: none;
+            border-radius: 5px;
+            color: #0f172a;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .auth-buttons button:hover {
+            background-color: #0ea5e9;
+        }
+
+        .hero {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 90vh;
+        background: url('images/spray.jpg') no-repeat center/cover;
+        color: #f1f5f9;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-content {
+        background-color: rgba(15, 23, 42, 0.85);
+        padding: 40px;
+        border-radius: 15px;
+        animation: fadeIn 1.5s ease-in-out;
+    }
+
+    .hero h1 {
+        font-size: 3.5rem;
+        margin: 0;
+    }
+
+    .hero h1 .highlight {
+        color: #ffcc00;
+        font-style: italic;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+        margin: 20px 0 30px;
+        line-height: 1.6;
+    }
+
+    .stats {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin: 20px 0;
+    }
+
+    .stat {
+        text-align: center;
+    }
+
+    .stat h3 {
+        font-size: 2rem;
+        color: #ffcc00;
+        margin: 0;
+    }
+
+    .stat p {
+        margin: 5px 0 0;
+        font-size: 0.9rem;
+        color: #e2e8f0;
+    }
+
+    .shop-now-btn {
+        padding: 15px 40px;
+        background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+        color: #0f172a;
+        font-size: 1rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: transform 0.3s ease, background-color 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .shop-now-btn:hover {
+        transform: scale(1.1);
+        background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+       .qualities-section {
+    padding: 50px 20px;
+    background-color: #1e293b;
+    color: #f1f5f9;
+    text-align: center;
+}
+.qualities-section {
+    padding: 50px 20px;
+    background-color: #1e293b;
+    color: #f1f5f9;
+    text-align: center;
+}
+
+.qualities-section h2 {
+    font-size: 2.5rem;
+    color: #38bdf8;
+    margin-bottom: 30px;
+}
+
+.qualities-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.quality {
+    background-color: #27343e;
+    border-radius: 10px;
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.quality:hover {
+    transform: scale(1.05);
+}
+
+.quality-icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 15px;
+}
+
+.quality h3 {
+    font-size: 1.5rem;
+    color: #facc15;
+    margin-bottom: 10px;
+}
+
+.quality p {
+    font-size: 1rem;
+    color: #e2e8f0;
+    line-height: 1.5;
+}
+.chatbot {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.chat-icon {
+    background-color: #38bdf8;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.chat-icon:hover {
+    transform: scale(1.1);
+}
+
+.chat-window {
+    display: none;
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 300px;
+    max-height: 400px;
+    background-color: #1e293b;
+    color: #f1f5f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    flex-direction: column;
+}
+
+.chat-header {
+    background-color: #38bdf8;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.chat-body {
+    padding: 10px;
+    overflow-y: auto;
+    height: 250px;
+    background-color: #27343e;
+}
+
+.bot-message, .user-message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.bot-message {
+    background-color: #38bdf8;
+    color: white;
+    text-align: left;
+}
+
+.user-message {
+    background-color: #0ea5e9;
+    color: white;
+    text-align: right;
+}
+
+.chat-footer {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #38bdf8;
+}
+
+.chat-footer input {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    background-color: #27343e;
+    color: white;
+}
+
+.chat-footer button {
+    background-color: #38bdf8;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.chat-footer button:hover {
+    background-color: #0ea5e9;
+}
+
+    .customer-reviews {
+    background-color: #1e293b;
+    color: #f1f5f9;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.customer-reviews h2 {
+    color: #38bdf8;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+.reviews-carousel {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.review-item {
+    background-color: #27343e;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.review-item:hover {
+    transform: scale(1.05);
+}
+
+.customer-photo {
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    margin: 0 auto 15px auto;
+    border: 3px solid #38bdf8;
+}
+
+.customer-name {
+    font-weight: bold;
+    color: #facc15;
+    margin-bottom: 10px;
+}
+
+.review-text {
+    font-size: 0.9rem;
+    color: #e2e8f0;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.stars {
+    color: #facc15;
+    font-size: 1.2rem;
+}
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #0f172a;
+            color: #e2e8f0;
+            font-size: 0.9rem;
+        }
+
+        .footer-section {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+.faq-section {
+    padding: 50px 20px;
+    background-color: #1e293b;
+    color: #f1f5f9;
+    text-align: center;
+}
+
+.faq-section h2 {
+    color: #38bdf8;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+/* Perfume Icon */
+.perfume-icon {
+    position: relative;
+    margin: 20px auto;
+    width: 100px;
+    height: 150px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.perfume-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Bottle Neck */
+.bottle-neck {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 20px;
+    background: linear-gradient(to bottom, #f8c291, #f6b93b);
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Bottle Body */
+.bottle-body {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 100px;
+    background: linear-gradient(135deg, #485563, #29323c);
+    border-radius: 10px 10px 5px 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4), inset 0 -3px 10px rgba(255, 255, 255, 0.1);
+}
+
+/* Bottle Base */
+.bottle-base {
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 10px;
+    background: linear-gradient(to right, #e58e26, #f6b93b);
+    border-radius: 5px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Spray Effect */
+.spray-effect {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 10%, rgba(255, 204, 0, 0.2) 50%, transparent 70%);
+    animation: sparkle 0.8s ease-out;
+    display: none;
+}
+
+@keyframes sparkle {
+    0% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) scale(3);
+    }
+}
+.gallery-section {
+    padding: 50px 20px;
+    background-color: #1e293b;
+    color: #f1f5f9;
+    text-align: center;
+}
+
+.gallery-section h2 {
+    color: #38bdf8;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.gallery-section p {
+    color: #e2e8f0;
+    font-size: 1rem;
+    margin-bottom: 30px;
+}
+
+.gallery-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.gallery-item {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+.gallery-item:hover .image-overlay {
+    opacity: 1;
+}
+.recommendation-section {
+    padding: 50px 20px;
+    background-color: #1e293b;
+    color: #f1f5f9;
+    text-align: center;
+}
+
+.recommendation-section h2 {
+    font-size: 2.5rem;
+    color: #38bdf8;
+    margin-bottom: 20px;
+}
+
+.recommendation-section p {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    color: #e2e8f0;
+}
+
+.recommendation-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.recommendation-item {
+    background-color: #27343e;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.recommendation-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+}
+
+.recommendation-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.recommendation-item h3 {
+    font-size: 1.5rem;
+    color: #facc15;
+    margin-bottom: 10px;
+}
+
+.recommendation-item p {
+    font-size: 1.2rem;
+    color: #e2e8f0;
+    margin-bottom: 20px;
+}
+
+.recommendation-item button {
+    padding: 10px 20px;
+    background-color: #38bdf8;
+    color: #0f172a;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.recommendation-item button:hover {
+    background-color: #0ea5e9;
+}
+
+/* FAQ Content */
+.faq-content {
+    display: none;
+    margin-top: 20px;
+    background: linear-gradient(135deg, #27343e, #1e293b);
+    padding: 15px;
+    border-radius: 10px;
+    color: #e2e8f0;
+    text-align: left;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.faq-content h3 {
+    font-size: 1.5rem;
+    color: #facc15;
+    margin-bottom: 10px;
+}
+
+.faq-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #e2e8f0;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.trending-products {
+    padding: 50px;
+    text-align: center;
+    background-color: #0f172a;
+}
+
+.trending-products h2 {
+    color: #38bdf8;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+.trending-gallery {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.product-item {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.product-item img {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    object-fit: cover;
+}
+
+.product-item h3 {
+    color: #38bdf8;
+    margin: 10px 0;
+}
+
+.product-item p {
+    color: #f1f5f9;
+    font-size: 1rem;
+}
+
+.product-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+}
+
+#effectContainer {
+    margin-top: 20px;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.bubble {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: float 5s infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-300px);
+        opacity: 0;
+    }
+}
+
+.fortune-wheel-section {
+    text-align: center;
+    margin: 50px 0;
+    color: #38bdf8;
+}
+
+#fortuneWheel {
+    display: block;
+    margin: 20px auto;
+    border: 5px solid #38bdf8;
+    border-radius: 50%; /* E bën rrethin perfekt */
+    background-color: #1e293b;
+}
+
+#spinButton {
+    padding: 10px 20px;
+    margin-top: 20px;
+    font-size: 1rem;
+    background-color: #38bdf8;
+    color: #0f172a;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#spinButton:hover {
+    background-color: #0ea5e9;
+}
+
+#resultText {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+
+.blog-section {
+    padding: 50px 20px;
+    background-color: #1e293b;
+    color: #f1f5f9;
+    text-align: center;
+}
+
+.blog-section h2 {
+    color: #38bdf8;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+.blog-gallery {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.blog-item {
+    background-color: #27343e;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 300px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.blog-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.blog-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.blog-item h3 {
+    color: #facc15;
+    margin: 10px 0;
+    font-size: 1.2rem;
+}
+
+.blog-item p {
+    color: #e2e8f0;
+    font-size: 1rem;
+    padding: 0 10px;
+    margin-bottom: 10px;
+}
+
+.blog-item button {
+    padding: 10px 20px;
+    background-color: #38bdf8;
+    color: #0f172a;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.blog-item button:hover {
+    background-color: #0ea5e9;
+}
+.discount-calendar-section {
+    background-color: #1e293b;
+    padding: 40px;
+    border-radius: 15px;
+    margin-top: 50px;
+    text-align: center;
+    color: #f1f5f9;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.discount-calendar-section h2 {
+    font-size: 2.5rem;
+    color: #38bdf8;
+    margin-bottom: 30px;
+}
+
+.calendar-navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.calendar-navigation button {
+    background-color: #0f172a;
+    border: 1px solid #38bdf8;
+    color: #f1f5f9;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.calendar-navigation button:hover {
+    background-color: #38bdf8;
+    color: #0f172a;
+}
+
+.calendar-navigation h3 {
+    font-size: 1.8rem;
+    color: #f1f5f9;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    margin: 20px auto;
+    max-width: 700px;
+}
+
+.calendar .day {
+    background-color: #0f172a;
+    padding: 15px;
+    border-radius: 8px;
+    color: #f1f5f9;
+    cursor: pointer;
+    text-align: center;
+    font-size: 1.1rem;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.calendar .day:hover {
+    background-color: #38bdf8;
+    color: #0f172a;
+    transform: scale(1.1);
+}
+
+.calendar .day.active {
+    background-color: #38bdf8;
+    color: #0f172a;
+    font-weight: bold;
+}
+
+.offer-details {
+    margin-top: 30px;
+    text-align: left;
+    max-width: 700px;
+    margin: 30px auto;
+    border: 1px solid #38bdf8;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #0f172a;
+}
+
+.offer-details h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #38bdf8;
+    text-align: center;
+}
+
+.offer-details ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.offer-details ul li {
+    font-size: 1.2rem;
+    margin: 10px 0;
+    color: #f1f5f9;
+    display: flex;
+    align-items: center;
+}
+
+.offer-details ul li::before {
+    content: "✔";
+    color: #38bdf8;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.brand-carousel-section {
+    padding: 50px 20px;
+    background-color: #1e293b;
+    color: #f1f5f9;
+    text-align: center;
+}
+
+.brand-carousel-section h2 {
+    color: #38bdf8;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+.brand-carousel {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    overflow: hidden;
+    gap: 20px;
+    animation: scroll 10s linear infinite;
+}
+
+.brand-logo {
+    flex: 0 0 auto;
+    width: 150px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #27343e;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+.brand-logo:hover {
+    transform: scale(1.1);
+}
+
+.brand-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    padding: 0;
+}
+
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+.fragrance-advisor {
+    background-color: #1e293b;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin: 20px 0;
+    text-align: center;
+    color: #f1f5f9;
+}
+
+.fragrance-advisor h2 {
+    color: #38bdf8;
+    margin-bottom: 10px;
+}
+
+.fragrance-advisor form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.fragrance-advisor select,
+.fragrance-advisor button {
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 300px;
+}
+
+.fragrance-advisor button {
+    background-color: #38bdf8;
+    color: #0f172a;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.fragrance-advisor button:hover {
+    background-color: #0ea5e9;
+}
+
+.recommendation {
+    margin-top: 20px;
+    background-color: #0f172a;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.recommendation h3 {
+    color: #38bdf8;
+    margin-bottom: 10px;
+}
+
+    .footer-column {
+            margin: 10px;
+            color: #e2e8f0;
+            text-align: left;
+        }
+
+
+        .newsletter input {
+            padding: 10px;
+            width: 300px;
+            margin-right: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .newsletter button {
+            padding: 10px 20px;
+            background-color: #38bdf8;
+            border: none;
+            color: #0f172a;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+
+
+        .newsletter button:hover {
+            background-color: #0ea5e9;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="logo">
+        <h1>AromaSphere</h1>
+
+
+    </div>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#qualities">Qualities</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#gallery">Gallery</a>
+
+
+    </nav>
+    <div class="auth-buttons">
+
+
+        <button onclick="window.location.href='login.html'">Login</button>
+        <button onclick="window.location.href='signup.html'">Sign Up</button>
+        <button id="adminButton" onclick="openAdminModal()">Admin Dashboard</button>
+    </div>
+</header>
+<div class="hero">
+    <div class="hero-content">
+        <h1>Fall in Love with <span class="highlight">Our Signature Perfumes</span></h1>
+        <p>Explore a world of enchanting scents designed to captivate your senses and elevate your style.</p>
+        <div class="stats">
+            <div class="stat">
+                <h3>90+</h3>
+                <p>Exclusive Perfumes</p>
+            </div>
+            <div class="stat">
+                <h3>15M+</h3>
+                <p>Satisfied Customers</p>
+            </div>
+            <div class="stat">
+                <h3>5</h3>
+                <p>Global Awards</p>
+            </div>
+        </div>
+        <button class="shop-now-btn" onclick="window.location.href='shop.html'">SHOP NOW</button>
+    </div>
+</div>
+
+<div class="qualities-section">
+    <h2>Our Distinctive Qualities</h2>
+    <div class="qualities-grid">
+        <div class="quality">
+            <img src="https://cdn-icons-png.flaticon.com/512/888/888857.png" alt="Long-lasting wear icon" class="quality-icon">
+            <h3>Long-lasting Wear</h3>
+            <p>Our perfumes last all day, ensuring you stay fresh and confident.</p>
+        </div>
+        <div class="quality">
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135706.png" alt="Natural ingredients icon" class="quality-icon">
+            <h3>Natural Ingredients</h3>
+            <p>Made from essential oils and carefully selected natural materials.</p>
+        </div>
+        <div class="quality">
+            <img src="https://cdn-icons-png.flaticon.com/512/4233/4233681.png" alt="Sustainable packaging icon" class="quality-icon">
+            <h3>Sustainable Packaging</h3>
+            <p>Eco-friendly and recyclable packaging for a greener planet.</p>
+        </div>
+        <div class="quality">
+            <img src="https://cdn-icons-png.flaticon.com/512/3408/3408599.png" alt="Unique scents icon" class="quality-icon">
+            <h3>Unique Scents</h3>
+            <p>Crafted by skilled perfumers to match your unique personality.</p>
+        </div>
+    </div>
+</div>
+
+<div class="fragrance-advisor">
+    <h2>AI Fragrance Advisor</h2>
+    <p>Let our AI help you find the perfect perfume based on your preferences!</p>
+    <form id="fragranceForm">
+        <label for="occasion">Select an Occasion:</label>
+        <select id="occasion" required>
+            <option value="Casual">Casual</option>
+            <option value="Work">Work</option>
+            <option value="Party">Party</option>
+            <option value="Date">Date</option>
+        </select>
+
+        <label for="mood">Choose a Mood:</label>
+        <select id="mood" required>
+            <option value="Fresh">Fresh</option>
+            <option value="Floral">Floral</option>
+            <option value="Spicy">Spicy</option>
+            <option value="Woody">Woody</option>
+        </select>
+
+        <label for="gender">For:</label>
+        <select id="gender" required>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Unisex">Unisex</option>
+        </select>
+
+        <button type="submit">Find My Perfume</button>
+    </form>
+
+    <div id="recommendation" class="recommendation">
+        <h3>Recommended Perfume:</h3>
+        <p id="perfumeResult">Please select your preferences and click "Find My Perfume".</p>
+    </div>
+</div>
+
+<script>
+    // Lista e parfumeve me të dhëna për filtrimin
+const perfumes = [
+    {
+        name: "Coco Mademoiselle",
+        occasion: "Casual",
+        mood: "Floral",
+        gender: "Female",
+        description: "A timeless classic with floral notes."
+    },
+    {
+        name: "Bleu de Chanel",
+        occasion: "Work",
+        mood: "Fresh",
+        gender: "Male",
+        description: "A fresh and woody fragrance for men."
+    },
+    {
+        name: "Oud Satin Mood",
+        occasion: "Date",
+        mood: "Woody",
+        gender: "Unisex",
+        description: "A luxurious and deep scent for romantic evenings."
+    },
+    {
+        name: "Good Girl",
+        occasion: "Party",
+        mood: "Spicy",
+        gender: "Female",
+        description: "An elegant and bold fragrance for special occasions."
+    },
+    {
+        name: "Le Male",
+        occasion: "Casual",
+        mood: "Fresh",
+        gender: "Male",
+        description: "A bold and modern fragrance for casual days."
+    }
+];
+
+// Funksioni për të gjetur parfumin sipas preferencave të përdoruesit
+document.getElementById("fragranceForm").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    // Merr vlerat nga dropdowns
+    const occasion = document.getElementById("occasion").value.trim();
+    const mood = document.getElementById("mood").value.trim();
+    const gender = document.getElementById("gender").value.trim();
+
+    // Gjej parfumin që përputhet
+    const result = perfumes.find(
+        perfume =>
+            perfume.occasion === occasion &&
+            perfume.mood === mood &&
+            perfume.gender === gender
+    );
+
+    // Shfaq rezultatin
+    const perfumeResult = document.getElementById("perfumeResult");
+    if (result) {
+        perfumeResult.innerHTML = `
+            <strong>${result.name}</strong>: ${result.description}
+        `;
+    } else {
+        perfumeResult.textContent =
+            "No matching perfumes found. Please try different options!";
+    }
+});
+
+</script>
+
+
+<div class="discount-calendar-section">
+    <h2>Perfume Discount Calendar</h2>
+    <div class="calendar-navigation">
+        <button id="prevMonth">&lt; Previous</button>
+        <h3 id="calendarMonth">January 2025</h3>
+        <button id="nextMonth">Next &gt;</button>
+    </div>
+    <div class="calendar">
+        <!-- Ditët do të gjenerohen automatikisht -->
+    </div>
+    <div class="offer-details">
+        <h3 id="offer-date">Select a date to see offers</h3>
+        <ul id="offer-list">
+            <!-- Ofertat do të shfaqen këtu -->
+        </ul>
+    </div>
+</div>
+
+
+<script>
+    const offers = {
+    "2025-01-05": ["20% off on all Chanel perfumes", "Buy 2 Get 1 Free"],
+    "2025-01-01": ["New Year Special: 25% off sitewide", "Free shipping on orders over $50"],
+    "2025-01-05": ["20% off on all Chanel perfumes", "Buy 2 Get 1 Free"],
+    "2025-01-10": ["10% off on Oud Satin Mood", "Exclusive gift on purchases above $100"],
+    "2025-01-15": ["15% off on Dior Sauvage", "Free sample for every order"],
+    "2025-01-20": ["Buy 1 Get 1 Free on select luxury perfumes"],
+    "2025-01-25": ["Winter Sale: 30% off sitewide", "Complimentary gift wrapping"],
+    "2025-01-30": ["End of Month Offer: 40% off on selected perfumes"],
+    "2025-01-31": ["Special Bundle Deals: Save up to 50%", "Free delivery for all orders"],
+    "2025-01-15": ["15% off on Oud Satin Mood", "Free shipping for orders over $100"],
+    "2025-02-10": ["30% off on Valentine's Day Collection", "Free gift for purchases over $200"],
+    "2025-03-20": ["50% off on Dior Sauvage", "Special bundle offers"],
+    "2025-04-25": ["Spring Sale: 25% off sitewide", "Free sample with every purchase"],
+    "2025-05-01": ["Exclusive May Day offer: 40% off on top brands"],
+    "2025-06-18": ["Summer Sale: 30% off on selected items"],
+    "2025-07-04": ["Independence Day: Buy 1 Get 1 Free on all perfumes"],
+    "2025-08-15": ["15% off on Luxury Fragrances", "Free Delivery"],
+    "2025-09-10": ["Autumn Specials: Up to 50% off on seasonal picks"],
+    "2025-10-31": ["Halloween Special: Spooky deals up to 40% off"],
+    "2025-11-25": ["Black Friday: Mega Discounts up to 70% off"],
+    "2025-12-15": ["Holiday Sale: 20% off on all items", "Free Gift Wrapping"],
+    "2025-12-25": ["Christmas Day Offer: 30% off on all luxury perfumes"],
+};
+
+let currentMonth = 0; // Janar (0), Shkurt (1), ...
+let currentYear = 2025;
+
+function generateCalendar() {
+    const calendar = document.querySelector(".calendar");
+    const calendarMonth = document.getElementById("calendarMonth");
+    const today = new Date(currentYear, currentMonth);
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+    calendarMonth.textContent = today.toLocaleString("default", { month: "long", year: "numeric" });
+
+    calendar.innerHTML = ""; // Fshij ditët ekzistuese
+
+    for (let i = 1; i <= daysInMonth; i++) {
+        const dayElement = document.createElement("div");
+        dayElement.classList.add("day");
+        dayElement.textContent = i;
+
+        const date = `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(i).padStart(2, "0")}`;
+        dayElement.addEventListener("click", () => showOffers(date));
+
+        calendar.appendChild(dayElement);
+    }
+}
+
+function showOffers(date) {
+    const offerDetails = document.querySelector(".offer-details");
+    const offerDate = document.getElementById("offer-date");
+    const offerList = document.getElementById("offer-list");
+
+    document.querySelectorAll(".day").forEach(day => day.classList.remove("active"));
+    event.target.classList.add("active");
+
+    if (offers[date]) {
+        offerDate.textContent = `Offers for ${date}:`;
+        offerList.innerHTML = offers[date].map(offer => `<li>${offer}</li>`).join("");
+    } else {
+        offerDate.textContent = `No offers available for ${date}.`;
+        offerList.innerHTML = "";
+    }
+}
+
+document.getElementById("prevMonth").addEventListener("click", () => {
+    currentMonth--;
+    if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+    }
+    generateCalendar();
+});
+
+document.getElementById("nextMonth").addEventListener("click", () => {
+    currentMonth++;
+    if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+    }
+    generateCalendar();
+});
+
+document.addEventListener("DOMContentLoaded", generateCalendar);
+
+</script>
+
+
+<div class="trending-products">
+    <h2>Trending Products</h2>
+    <div class="trending-gallery">
+        <div class="product-item" onclick="showEffect('Coco Mademoiselle')">
+            <img src="images/Coco Chanel.jpg" alt="Coco Mademoiselle">
+            <h3>Coco Mademoiselle</h3>
+            <p>$172.00</p>
+        </div>
+        <div class="product-item" onclick="showEffect('Coco Noir')">
+            <img src="images/bluee.jpg" alt="Coco Noir">
+            <h3>Coco Noir</h3>
+            <p>$172.00</p>
+        </div>
+        <div class="product-item" onclick="showEffect('Oud Satin Mood')">
+            <img src="images/kurkdijan.jpg" alt="Oud Satin Mood">
+            <h3>Oud Satin Mood</h3>
+            <p>$312.00</p>
+        </div>
+        <div class="product-item" onclick="showEffect('Bleu De Chanel')">
+            <img src="images/bleu.jpg" alt="Bleu De Chanel">
+            <h3>Bleu De Chanel</h3>
+            <p>$157.00</p>
+        </div>
+    </div>
+    <div id="effectContainer"></div>
+</div>
+
+<script>
+    function showEffect(productName) {
+     const effectContainer = document.getElementById("effectContainer");
+     effectContainer.innerHTML = ""; // Clear existing effects
+
+     const colors = {
+         "Coco Mademoiselle": "#ff9a9e",
+         "Coco Noir": "#5a67d8",
+         "Oud Satin Mood": "#f6d365",
+         "Bleu De Chanel": "#7fbcff"
+     };
+
+     for (let i = 0; i < 30; i++) {
+         const bubble = document.createElement("div");
+         bubble.className = "bubble";
+         bubble.style.width = `${Math.random() * 50 + 10}px`;
+         bubble.style.height = bubble.style.width;
+         bubble.style.backgroundColor = colors[productName];
+         bubble.style.left = `${Math.random() * 100}%`;
+         bubble.style.animationDuration = `${Math.random() * 2 + 3}s`;
+         effectContainer.appendChild(bubble);
+     }
+ }
+
+</script>
+
+<div class="fortune-wheel-section">
+    <h2>Spin the Wheel of Fortune!</h2>
+    <div id="wheelContainer">
+        <canvas id="fortuneWheel" width="300" height="300"></canvas>
+        <button id="spinButton">Spin Now</button>
+        <p id="resultText"></p>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+     const canvas = document.getElementById("fortuneWheel");
+     const ctx = canvas.getContext("2d");
+     const spinButton = document.getElementById("spinButton");
+     const resultText = document.getElementById("resultText");
+
+     const wheelSegments = ["10% Off", "20% Off", "Free Shipping", "Buy 1 Get 1 Free", "No Prize", "50% Off"];
+     const segmentColors = ["#ff6b6b", "#ffa502", "#1e90ff", "#2ed573", "#57606f", "#ff4757"];
+     const arcSize = (2 * Math.PI) / wheelSegments.length;
+     let rotationAngle = 0;
+     let spinning = false;
+
+     // Funksioni për të vizatuar rrotën
+     function drawWheel() {
+         const radius = canvas.width / 2;
+         ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+         for (let i = 0; i < wheelSegments.length; i++) {
+             const startAngle = i * arcSize + rotationAngle;
+             const endAngle = startAngle + arcSize;
+
+             // Segmentet e rrotës
+             ctx.beginPath();
+             ctx.moveTo(radius, radius);
+             ctx.arc(radius, radius, radius, startAngle, endAngle);
+             ctx.fillStyle = segmentColors[i];
+             ctx.fill();
+             ctx.stroke();
+             ctx.closePath();
+
+             // Teksti mbi segmentet
+             ctx.save();
+             ctx.translate(radius, radius);
+             ctx.rotate(startAngle + arcSize / 2);
+             ctx.textAlign = "right";
+             ctx.fillStyle = "#fff";
+             ctx.font = "14px Arial";
+             ctx.fillText(wheelSegments[i], radius - 10, 10);
+             ctx.restore();
+         }
+     }
+
+     // Funksioni për të filluar rrotullimin
+     function spinWheel() {
+         if (spinning) return;
+         spinning = true;
+         resultText.textContent = "";
+
+         let totalSpins = Math.random() * 3 + 3; // Gjeneron një numër të rastësishëm rrotullimesh
+         let spinInterval = setInterval(() => {
+             rotationAngle += 0.1;
+             drawWheel();
+
+             totalSpins -= 0.1;
+             if (totalSpins <= 0) {
+                 clearInterval(spinInterval);
+                 spinning = false;
+                 showResult();
+             }
+         }, 16); // 16ms për animacion të qetë
+     }
+
+     // Funksioni për të shfaqur rezultatin
+     function showResult() {
+         const selectedSegment = Math.floor(
+             (wheelSegments.length - Math.floor((rotationAngle / arcSize) % wheelSegments.length)) % wheelSegments.length
+         );
+         resultText.textContent = `You won: ${wheelSegments[selectedSegment]}!`;
+     }
+
+     // Event Listener për butonin e rrotullimit
+     spinButton.addEventListener("click", spinWheel);
+
+     // Vizaton rrotën në ngarkimin e faqes
+     drawWheel();
+ });
+
+</script>
+
+<div class="brand-carousel-section">
+    <h2>Our Trusted Brands</h2>
+    <div class="brand-carousel">
+        <div class="brand-logo"><img src="images/chanel.jpg" alt="Brand 1"></div>
+        <div class="brand-logo"><img src="images/Maison.png" alt="Brand 2"></div>
+        <div class="brand-logo"><img src="images/ebbc.jpeg" alt="Brand 3"></div>
+        <div class="brand-logo"><img src="images/ssephora.jpg" alt="Brand 4"></div>
+        <div class="brand-logo"><img src="images/Killian.jpg" alt="Brand 5"></div>
+        <div class="brand-logo"><img src="images/yycosmetisc.jpeg" alt="Brand 6"></div>
+    </div>
+</div>
+<script type="module" src="static/api.js"></script>
+<script>
+    const carousel = document.querySelector('.brand-carousel');
+    let isPaused = false;
+
+    carousel.addEventListener('mouseover', () => {
+    carousel.style.animationPlayState = 'paused';
+    isPaused = true;
+    });
+
+    carousel.addEventListener('mouseout', () => {
+    if (isPaused) {
+    carousel.style.animationPlayState = 'running';
+    }
+    });
+</script>
+
+
+
+
+<section class="customer-reviews">
+    <h2>What Our Customers Are Saying</h2>
+    <div class="reviews-carousel">
+        <div class="review-item">
+            <div class="customer-photo" style="background-image: url('/images/Rrezart.jpg');"></div>
+            <p class="customer-name">Rrezart Prebreza</p>
+            <p class="review-text">"Absolutely love Rosewood Bliss! The scent is so beautiful and lasts all day. I get so many compliments when I wear it. Highly recommend!"</p>
+            <div class="stars">
+                ⭐⭐⭐⭐⭐
+            </div>
+        </div>
+        <div class="review-item">
+            <div class="customer-photo" style="background-image: url('/images/bessart.jpg');"></div>
+            <p class="customer-name">Besart Prebreza</p>
+            <p class="review-text">"Citrus Zest is my go-to summer fragrance. It's light and refreshing, and always puts me in a good mood. Plus, it lasts a long time on my skin."</p>
+            <div class="stars">
+                ⭐⭐⭐⭐⭐
+            </div>
+        </div>
+        <div class="review-item">
+            <div class="customer-photo" style="background-image: url('/images/Qendrim.jpg');"></div>
+            <p class="customer-name">Qendrim Hykaj</p>
+            <p class="review-text">"Woodland Walk is perfect for autumn! The warm and earthy tones are incredible. It's like walking through a magical forest."</p>
+            <div class="stars">
+                ⭐⭐⭐⭐⭐
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section id="gallery" class="gallery-section">
+    <h2>Our Gallery</h2>
+    <p>Discover the elegance and artistry of our signature perfumes through our exclusive gallery.</p>
+    <div class="gallery-grid">
+        <div class="gallery-item">
+            <div class="image-wrapper">
+                <img src="/images/xerrjof.jpg" alt="Xerjof">
+                <div class="image-overlay">
+                    <p>Xerjoff</p>
+                </div>
+            </div>
+        </div>
+        <div class="gallery-item">
+            <div class="image-wrapper">
+                <img src="/images/amouage.jpg" alt="Amouage">
+                <div class="image-overlay">
+                    <p>Amouage</p>
+                </div>
+            </div>
+        </div>
+        <div class="gallery-item">
+            <div class="image-wrapper">
+                <img src="/images/killiann.jpg" alt="Killian">
+                <div class="image-overlay">
+                    <p>KILIAN PARIS</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="chatbot">
+    <div class="chat-icon" onclick="toggleChat()">
+        💬
+    </div>
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <h3>Ask AromaSphere</h3>
+            <button class="close-btn" onclick="toggleChat()">✖</button>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="bot-message">
+                <p>Hi! How can I help you today?</p>
+            </div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="userMessage" placeholder="Type your message..." onkeypress="handleEnter(event)">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+</div>
+<script>
+    function toggleChat() {
+    const chatWindow = document.getElementById('chatWindow');
+    chatWindow.style.display = chatWindow.style.display === 'none' || !chatWindow.style.display ? 'block' : 'none';
+    }
+
+    function sendMessage() {
+    const userMessage = document.getElementById('userMessage').value.trim();
+    if (userMessage) {
+    addMessage(userMessage, 'user-message');
+    document.getElementById('userMessage').value = '';
+    setTimeout(() => addMessage(getBotResponse(userMessage), 'bot-message'), 1000);
+    }
+    }
+
+    function handleEnter(event) {
+    if (event.key === 'Enter') {
+    sendMessage();
+    }
+    }
+
+    function addMessage(message, type) {
+    const chatBody = document.getElementById('chatBody');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = type;
+    messageDiv.innerHTML = `<p>${message}</p>`;
+    chatBody.appendChild(messageDiv);
+    chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    function getBotResponse(message) {
+    const responses = {
+    hello: "Hi there! How can I assist you?",
+    perfume: "We have a wide variety of perfumes. Check out our 'Shop' section!",
+    default: "I'm here to help with any questions you have.",
+    };
+    message = message.toLowerCase();
+    return responses[message] || responses['default'];
+    }
+</script>
+
+<div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+        <!-- Perfume Icon -->
+        <div class="perfume-icon" onclick="showFAQ()">
+            <div class="bottle-neck"></div>
+            <div class="bottle-body"></div>
+            <div class="bottle-base"></div>
+            <div class="spray-effect"></div>
+        </div>
+        <!-- FAQ Content -->
+        <div id="faq1" class="faq-content">
+            <h3>What is AromaSphere?</h3>
+            <p>AromaSphere is your go-to platform for finding exclusive perfumes that match your unique style and personality.</p>
+        </div>
+        <div id="faq2" class="faq-content">
+            <h3>How can I order a perfume?</h3>
+            <p>You can easily place an order by browsing our collection and clicking the "Shop Now" button to add your favorite perfumes to the cart.</p>
+        </div>
+        <div id="faq3" class="faq-content">
+            <h3>Do you offer international shipping?</h3>
+            <p>Yes, we offer international shipping to a wide range of countries. Shipping rates may vary based on your location.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentFAQ = 0;
+
+function showFAQ() {
+    const faqs = document.querySelectorAll('.faq-content');
+    const spray = document.querySelector('.spray-effect');
+
+    // Hide all FAQ content
+    faqs.forEach(faq => faq.style.display = 'none');
+
+    // Show spray effect
+    spray.style.display = 'block';
+    setTimeout(() => {
+        spray.style.display = 'none';
+        // Show next FAQ
+        faqs[currentFAQ].style.display = 'block';
+        currentFAQ = (currentFAQ + 1) % faqs.length; // Cycle through FAQs
+    }, 500); // Adjust timing to match the animation
+}
+
+</script>
+<footer>
+    <div class="footer-section">
+        <div class="footer-column">
+            <h3>Our Stores</h3>
+            <p>Gjilan</p>
+            <p>Pristina</p>
+            <p>Malisevo</p>
+        </div>
+        <div class="footer-column">
+            <h3>Useful Links</h3>
+            <p>Privacy Policy</p>
+            <p>Returns</p>
+            <p>Contact Us</p>
+        </div>
+
+        <div class="footer-column newsletter">
+            <h3>Join Newsletter</h3>
+            <input type="email" placeholder="Enter Email">
+            <button>Subscribe</button>
+        </div>
+    </div>
+    <p>&copy; 2024 AromaSphere. All Rights Reserved.</p>
+</footer>
+<!-- Modal për Admin Login -->
+<div id="adminModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #1e293b; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); z-index: 1000;">
+    <h2 style="color: #38bdf8; text-align: center;">Admin Login</h2>
+    <form id="adminLoginForm">
+        <label for="adminUsername" style="color: #f1f5f9;">Username</label>
+        <input type="text" id="adminUsername" placeholder="Enter Admin Username" required style="width: 100%; padding: 10px; margin: 10px 0;">
+        <label for="adminPassword" style="color: #f1f5f9;">Password</label>
+        <input type="password" id="adminPassword" placeholder="Enter Admin Password" required style="width: 100%; padding: 10px; margin: 10px 0;">
+        <button type="submit" style="background-color: #38bdf8; color: #0f172a; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Login</button>
+        <button type="button" onclick="closeAdminModal()" style="background-color: #f87171; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-left: 10px;">Cancel</button>
+        <p id="adminError" style="color: #ef4444; display: none; margin-top: 10px;">Invalid credentials!</p>
+    </form>
+</div>
+<script>
+    // Funksioni për të hapur modalin e adminit
+    function openAdminModal() {
+        document.getElementById("adminModal").style.display = "block";
+    }
+
+    // Funksioni për të mbyllur modalin e adminit
+    function closeAdminModal() {
+        document.getElementById("adminModal").style.display = "none";
+    }
+
+    // Login për adminin
+    document.getElementById("adminLoginForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const username = document.getElementById("adminUsername").value.trim();
+        const password = document.getElementById("adminPassword").value.trim();
+        const error = document.getElementById("adminError");
+
+        // Kontrollimi i kredencialeve
+        if (username === "Arbena Gashi" && password === "Arbena12345!") {
+            error.style.display = "none";
+            alert("Welcome, Admin!");
+            window.location.href = "admin-dashboard.html"; // Ridrejto te admin-dashboard.html
+        } else {
+            error.style.display = "block";
+            error.textContent = "Invalid credentials!";
+        }
+
+
+    });
+
+
+
+
+</script>
+<script type="module" src="static/api.js"></script>
+</body>
+</html>

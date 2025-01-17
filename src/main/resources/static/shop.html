@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Now - AromaSphere</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            background-color: #0f172a;
+            color: #f1f5f9;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: #1e293b;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            color: #38bdf8;
+            font-size: 1.8rem;
+        }
+
+        header nav a {
+            color: #f1f5f9;
+            text-decoration: none;
+            margin-right: 20px;
+            font-size: 1rem;
+        }
+
+        header nav a:hover {
+            color: #38bdf8;
+            text-decoration: underline;
+        }
+
+        .theme-switcher {
+            cursor: pointer;
+            font-size: 1rem;
+            background: none;
+            border: 2px solid #38bdf8;
+            color: #38bdf8;
+            border-radius: 5px;
+            padding: 5px 10px;
+        }
+
+        .theme-switcher:hover {
+            background-color: #38bdf8;
+            color: #0f172a;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        /* Filter Section */
+        .filter {
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .filter select, .filter input {
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid #38bdf8;
+            background-color: #1e293b;
+            color: #f1f5f9;
+            margin-right: 10px;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: #1e293b;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            color: #f1f5f9;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .product-card img {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .product-card h3 {
+            font-size: 1.5rem;
+            color: #38bdf8;
+            margin-bottom: 10px;
+        }
+
+        .product-card p {
+            font-size: 1rem;
+            margin: 5px 0;
+        }
+
+        .product-card .discount {
+            background-color: #f87171;
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .product-card .old-price {
+            text-decoration: line-through;
+            color: #f87171;
+            margin-right: 5px;
+        }
+
+        /* Shopping Cart */
+        .cart-section {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #1e293b;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .cart-section h2 {
+            color: #38bdf8;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .cart-items {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .cart-items li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #0f172a;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .cart-items li p {
+            margin: 0;
+        }
+
+        .checkout-btn {
+            margin-top: 20px;
+            display: block;
+            padding: 10px 20px;
+            background-color: #38bdf8;
+            color: #0f172a;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .checkout-btn:hover {
+            background-color: #0ea5e9;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #1e293b;
+            color: #f1f5f9;
+            margin-top: 20px;
+        }
+
+        footer .social-icons {
+            margin-top: 10px;
+        }
+
+        footer .social-icons a {
+            margin: 0 10px;
+            color: #38bdf8;
+            text-decoration: none;
+            font-size: 1.5rem;
+        }
+
+        footer .social-icons a:hover {
+            color: #0ea5e9;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>AromaSphere</h1>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="login.html">Login</a>
+    </nav>
+</header>
+
+
+
+<div class="container">
+    <div class="filter">
+        <div>
+            <label for="priceFilter">Filter by Price:</label>
+            <select id="priceFilter" onchange="filterProducts()">
+                <option value="all">All</option>
+                <option value="low">Below $50</option>
+                <option value="medium">$50 - $100</option>
+                <option value="high">Above $100</option>
+                <option value="asc">From Lowest to Highest Price</option>
+                <option value="desc">From Highest to Lowest Price</option>
+            </select>
+        </div>
+        <div>
+            <label for="brandFilter">Filter by Brand:</label>
+            <select id="brandFilter" onchange="filterProducts()">
+                <option value="all">All Brands</option>
+                <option value="Chanel">Chanel</option>
+                <option value="Xerjoff">Xerjoff</option>
+                <option value="Amouage">Amouage</option>
+                <option value="Jean Paul Gaultier">Jean Paul Gaultier</option>
+                <option value="Dior">Dior</option>
+                <option value="Carolina Herrera">Carolina Herrera</option>
+            </select>
+        </div>
+        <div>
+            <label for="popularityFilter">Sort by Popularity:</label>
+            <select id="popularityFilter" onchange="filterProducts()">
+                <option value="all">All</option>
+                <option value="top">Top Rated</option>
+            </select>
+        </div>
+        <div>
+            <input type="text" id="searchBar" placeholder="Search by name..." oninput="filterProducts()">
+        </div>
+    </div>
+</div>
+
+
+
+<div class="products-grid" id="productsGrid">
+    <!-- Example Product -->
+    <div class="product-card">
+        <div class="discount">-20%</div>
+        <img src="/images/made.jpg" alt="Chanel">
+        <h3>Coco Mademoiselle</h3>
+        <p><strong>Brand:</strong> Chanel</p>
+        <p><span class="old-price">$150</span> $120</p>
+        <p>A timeless classic with floral notes.</p>
+        <button onclick="addToCart('Coco Mademoiselle', 120)">Add to Cart</button>
+    </div>
+
+    <!-- Add more products here -->
+    <!-- Product 1 -->
+    <div class="product-card">
+        <div class="discount">-15%</div>
+        <img src="/images/de.jpg" alt="Bleu de Chanel">
+        <h3>Bleu de Chanel</h3>
+        <p><strong>Brand:</strong> Chanel</p>
+        <p><span class="old-price">$200</span> $170</p>
+        <p>A fresh and woody fragrance for men.</p>
+        <button onclick="addToCart('Bleu de Chanel', 170)">Add to Cart</button>
+    </div>
+
+    <!-- Product 2 -->
+    <div class="product-card">
+        <div class="discount">-10%</div>
+        <img src="/images/sauvage.jpg" alt="Sauvage">
+        <h3>Sauvage</h3>
+        <p><strong>Brand:</strong> Dior</p>
+        <p><span class="old-price">$250</span> $225</p>
+        <p>A spicy and fresh scent for every occasion.</p>
+        <button onclick="addToCart('Sauvage', 225)">Add to Cart</button>
+    </div>
+
+    <!-- Product 3 -->
+    <div class="product-card">
+        <div class="discount">-25%</div>
+        <img src="/images/good.jpg" alt="Carolina Herrera">
+        <h3>Good Girl</h3>
+        <p><strong>Brand:</strong> Carolina Herrera</p>
+        <p><span class="old-price">$190</span> $142</p>
+        <p>An elegant and bold fragrance.</p>
+        <button onclick="addToCart('Good Girl', 142)">Add to Cart</button>
+    </div>
+
+    <!-- Product 4 -->
+    <div class="product-card">
+        <div class="discount">-18%</div>
+        <img src="/images/opium.jpg" alt="Black Opium">
+        <h3>Black Opium</h3>
+        <p><strong>Brand:</strong> Yves Saint Laurent</p>
+        <p><span class="old-price">$180</span> $148</p>
+        <p>A mysterious and addictive fragrance.</p>
+        <button onclick="addToCart('Black Opium', 148)">Add to Cart</button>
+    </div>
+
+    <!-- Product 5 -->
+    <div class="product-card">
+        <div class="discount">-30%</div>
+        <img src="/images/No.jpg" alt="No.5">
+        <h3>No.5</h3>
+        <p><strong>Brand:</strong> Chanel</p>
+        <p><span class="old-price">$220</span> $154</p>
+        <p>The timeless classic for elegant women.</p>
+        <button onclick="addToCart('No.5', 154)">Add to Cart</button>
+    </div>
+
+    <!-- Product 6 -->
+    <div class="product-card">
+        <div class="discount">-12%</div>
+        <img src="/images/fordi.jpg" alt="Tom Ford Oud Wood">
+        <h3>Oud Wood</h3>
+        <p><strong>Brand:</strong> Tom Ford</p>
+        <p><span class="old-price">$320</span> $280</p>
+        <p>A rare and exotic scent with rich oud.</p>
+        <button onclick="addToCart('Oud Wood', 280)">Add to Cart</button>
+    </div>
+
+    <!-- Product 7 -->
+    <div class="product-card">
+        <div class="discount">-15%</div>
+        <img src="/images/ave.jpg" alt="Aventus">
+        <h3>Aventus</h3>
+        <p><strong>Brand:</strong> Creed</p>
+        <p><span class="old-price">$450</span> $380</p>
+        <p>The scent of success and sophistication.</p>
+        <button onclick="addToCart('Aventus', 380)">Add to Cart</button>
+    </div>
+
+    <!-- Product 8 -->
+    <div class="product-card">
+        <div class="discount">-20%</div>
+        <img src="/images/lavie.jpg" alt="La Vie Est Belle">
+        <h3>La Vie Est Belle</h3>
+        <p><strong>Brand:</strong> Lancôme</p>
+        <p><span class="old-price">$120</span> $96</p>
+        <p>A joyful and sparkling floral scent.</p>
+        <button onclick="addToCart('La Vie Est Belle', 96)">Add to Cart</button>
+    </div>
+
+    <!-- Product 9 -->
+    <div class="product-card">
+        <div class="discount">-18%</div>
+        <img src="/images/flowerbom.jpg" alt="Flowerbomb">
+        <h3>Flowerbomb</h3>
+        <p><strong>Brand:</strong> Viktor & Rolf</p>
+        <p><span class="old-price">$180</span> $148</p>
+        <p>A bouquet of floral elegance and boldness.</p>
+        <button onclick="addToCart('Flowerbomb', 148)">Add to Cart</button>
+    </div>
+
+    <!-- Product 10 -->
+    <div class="product-card">
+        <div class="discount">-22%</div>
+        <img src="/images/hypno.jpg" alt="Hypnotic Poison">
+        <h3>Hypnotic Poison</h3>
+        <p><strong>Brand:</strong> Dior</p>
+        <p><span class="old-price">$140</span> $109</p>
+        <p>An enchanting and mysterious scent.</p>
+        <button onclick="addToCart('Hypnotic Poison', 109)">Add to Cart</button>
+    </div>
+
+
+
+    <!-- Product 12 -->
+    <div class="product-card">
+        <div class="discount">-15%</div>
+        <img src="/images/libre.jpg" alt="Libre">
+        <h3>Libre</h3>
+        <p><strong>Brand:</strong> Yves Saint Laurent</p>
+        <p><span class="old-price">$150</span> $128</p>
+        <p>An elegant and bold fragrance for women.</p>
+        <button onclick="addToCart('Libre', 128)">Add to Cart</button>
+    </div>
+
+    <!-- Product 13 -->
+    <div class="product-card">
+        <div class="discount">-18%</div>
+        <img src="/images/linte.jpg" alt="L’Interdit">
+        <h3>L’Interdit</h3>
+        <p><strong>Brand:</strong> Givenchy</p>
+        <p><span class="old-price">$160</span> $130</p>
+        <p>A daring and unforgettable fragrance.</p>
+        <button onclick="addToCart('L’Interdit', 130)">Add to Cart</button>
+    </div>
+
+    <!-- Product 14 -->
+    <div class="product-card">
+        <div class="discount">-20%</div>
+        <img src="/images/spice.jpg" alt="Spicebomb">
+        <h3>Spicebomb</h3>
+        <p><strong>Brand:</strong> Viktor & Rolf</p>
+        <p><span class="old-price">$190</span> $152</p>
+        <p>A captivating and explosive scent.</p>
+        <button onclick="addToCart('Spicebomb', 152)">Add to Cart</button>
+    </div>
+
+    <!-- Product 15 -->
+    <div class="product-card">
+        <div class="discount">-22%</div>
+        <img src="/images/light.jpg" alt="Light Blue">
+        <h3>Light Blue</h3>
+        <p><strong>Brand:</strong> Dolce & Gabbana</p>
+        <p><span class="old-price">$130</span> $100</p>
+        <p>A fresh and airy fragrance.</p>
+        <button onclick="addToCart('Light Blue', 100)">Add to Cart</button>
+    </div>
+
+    <!-- Product 16 -->
+    <div class="product-card">
+        <div class="discount">-15%</div>
+        <img src="/images/idole.jpg" alt="Idôle">
+        <h3>Idôle</h3>
+        <p><strong>Brand:</strong> Lancôme</p>
+        <p><span class="old-price">$170</span> $145</p>
+        <p>A modern and radiant floral scent.</p>
+        <button onclick="addToCart('Idôle', 145)">Add to Cart</button>
+    </div>
+
+    <!-- Product 17 -->
+    <div class="product-card">
+        <div class="discount">-25%</div>
+        <img src="/images/way.jpg" alt="My Way">
+        <h3>My Way</h3>
+        <p><strong>Brand:</strong> Giorgio Armani</p>
+        <p><span class="old-price">$180</span> $135</p>
+        <p>An inviting and luminous fragrance.</p>
+        <button onclick="addToCart('My Way', 135)">Add to Cart</button>
+    </div>
+
+    <!-- Product 18 -->
+    <div class="product-card">
+        <div class="discount">-18%</div>
+        <img src="/images/invi.jpg" alt="Invictus">
+        <h3>Invictus</h3>
+        <p><strong>Brand:</strong> Paco Rabanne</p>
+        <p><span class="old-price">$150</span> $123</p>
+        <p>A victorious and daring scent.</p>
+        <button onclick="addToCart('Invictus', 123)">Add to Cart</button>
+    </div>
+
+    <!-- Product 19 -->
+    <div class="product-card">
+        <div class="discount">-20%</div>
+        <img src="/images/pure.jpg"  alt="Pure XS">
+        <h3>Pure XS</h3>
+        <p><strong>Brand:</strong> Paco Rabanne</p>
+        <p><span class="old-price">$140</span> $112</p>
+        <p>A provocative and luxurious fragrance.</p>
+        <button onclick="addToCart('Pure XS', 112)">Add to Cart</button>
+    </div>
+
+    <!-- Product 20 -->
+    <div class="product-card">
+        <div class="discount">-22%</div>
+        <img src="/images/soleil.jpg"  alt="Eau de Soleil Blanc">
+        <h3>Eau de Soleil Blanc</h3>
+        <p><strong>Brand:</strong> Tom Ford</p>
+        <p><span class="old-price">$270</span> $210</p>
+        <p>A radiant and warm floral scent.</p>
+        <button onclick="addToCart('Eau de Soleil Blanc', 210)">Add to Cart</button>
+    </div>
+    <!-- Produkti 21 -->
+    <div class="product-card">
+        <div class="discount">-20%</div>
+        <img src="/images/angel.jpg"  alt="Angel">
+        <h3>Angel</h3>
+        <p><strong>Brand:</strong> Mugler</p>
+        <p><span class="old-price">$180</span> $144</p>
+        <p>A celestial and sweet scent for women.</p>
+        <button onclick="addToCart('Angel', 144)">Add to Cart</button>
+    </div>
+
+    <!-- Produkti 22 -->
+    <div class="product-card">
+        <div class="discount">-15%</div>
+        <img src="/images/homme.jpg" alt="L'Homme">
+        <h3>L'Homme</h3>
+        <p><strong>Brand:</strong> Yves Saint Laurent</p>
+        <p><span class="old-price">$150</span> $128</p>
+        <p>A magnetic and elegant fragrance for men.</p>
+        <button onclick="addToCart('L\'Homme', 128)">Add to Cart</button>
+    </div>
+
+    <!-- Produkti 23 -->
+    <div class="product-card">
+        <div class="discount">-25%</div>
+        <img src="/images/alien.jpg" alt="Alien">
+        <h3>Alien</h3>
+        <p><strong>Brand:</strong> Mugler</p>
+        <p><span class="old-price">$220</span> $165</p>
+        <p>An extraterrestrial and captivating scent.</p>
+        <button onclick="addToCart('Alien', 165)">Add to Cart</button>
+    </div>
+
+    <!-- Produkti 24 -->
+    <div class="product-card">
+        <div class="discount">-10%</div>
+        <img src="/images/omnia.jpg" alt="Omnia Crystalline">
+        <h3>Omnia Crystalline</h3>
+        <p><strong>Brand:</strong> Bvlgari</p>
+        <p><span class="old-price">$140</span> $126</p>
+        <p>A radiant and luminous scent inspired by crystals.</p>
+        <button onclick="addToCart('Omnia Crystalline', 126)">Add to Cart</button>
+    </div>
+
+    <!-- Produkti 25 -->
+    <div class="product-card">
+        <div class="discount">-22%</div>
+        <img src="/images/luna.jpg" alt="Prada Luna Rossa">
+        <h3>Prada Luna Rossa</h3>
+        <p><strong>Brand:</strong> Prada</p>
+        <p><span class="old-price">$170</span> $133</p>
+        <p>A fresh and invigorating scent for adventurers.</p>
+        <button onclick="addToCart('Prada Luna Rossa', 133)">Add to Cart</button>
+    </div>
+
+    <!-- Produkti 26 -->
+    <div class="product-card">
+        <div class="discount">-18%</div>
+        <img src="/images/olympea.jpg" alt="Olympéa">
+        <h3>Olympéa</h3>
+        <p><strong>Brand:</strong> Paco Rabanne</p>
+        <p><span class="old-price">$160</span> $131</p>
+        <p>A powerful and divine fragrance for women.</p>
+        <button onclick="addToCart('Olympéa', 131)">Add to Cart</button>
+    </div>
+
+    <!-- Produkti 27 -->
+    <div class="product-card">
+        <div class="discount">-20%</div>
+        <img src="/images/pour.jpg" alt="Guilty Pour Homme">
+        <h3>Guilty Pour Homme</h3>
+        <p><strong>Brand:</strong> Gucci</p>
+        <p><span class="old-price">$150</span> $120</p>
+        <p>A bold and modern scent for confident men.</p>
+        <button onclick="addToCart('Guilty Pour Homme', 120)">Add to Cart</button>
+    </div>
+
+    <!-- Produkti 28 -->
+    <div class="product-card">
+        <div class="discount">-12%</div>
+        <img src="/images/theone.jpg" alt="The One">
+        <h3>The One</h3>
+        <p><strong>Brand:</strong> Dolce & Gabbana</p>
+        <p><span class="old-price">$190</span> $167</p>
+        <p>An elegant and sensual fragrance for women.</p>
+        <button onclick="addToCart('The One', 167)">Add to Cart</button>
+    </div>
+
+    <!-- Produkti 29 -->
+    <div class="product-card">
+        <div class="discount">-18%</div>
+        <img src="/images/code.jpg" alt="Armani Code">
+        <h3>Armani Code</h3>
+        <p><strong>Brand:</strong> Giorgio Armani</p>
+        <p><span class="old-price">$200</span> $164</p>
+        <p>A mysterious and seductive fragrance.</p>
+        <button onclick="addToCart('Armani Code', 164)">Add to Cart</button>
+    </div>
+    <!-- Produkti 30 -->
+    <div class="product-card">
+        <div class="discount">-20%</div>
+        <img src="/images/naxo.jpg" alt="Xerjoff">
+        <h3>Naxos</h3>
+        <p><strong>Brand:</strong> Xerjoff</p>
+        <p><span class="old-price">$180</span> $144</p>
+        <p>A daring and intense fragrance for men and woman.</p>
+        <button onclick="addToCart('Naxos', 144)">Add to Cart</button>
+    </div>
+
+    <!-- Produkti 31 -->
+    <div class="product-card">
+        <div class="discount">-25%</div>
+        <img src="/images/amou.jpg" alt="Guidance">
+        <h3>Guidance</h3>
+        <p><strong>Brand:</strong> Amouage</p>
+        <p><span class="old-price">$220</span> $165</p>
+        <p>A luxurious and sophisticated floral scent.</p>
+        <button onclick="addToCart('Amouage', 165)">Add to Cart</button>
+    </div>
+</div>
+
+
+<footer>
+    <p>&copy; 2024 AromaSphere. All Rights Reserved.</p>
+    <div class="social-icons">
+        <a href="#">&#xf09a;</a>
+        <a href="#">&#xf16d;</a>
+        <a href="#">&#xf099;</a>
+    </div>
+</footer>
+
+<script>
+    function addToCart(productName, price) {
+        alert(`${productName} has been added to your cart!`);
+        // Logic to add product to cart can be implemented here
+    }
+
+    function switchTheme() {
+        const body = document.body;
+        if (body.style.backgroundColor === 'white') {
+            body.style.backgroundColor = '#0f172a';
+            body.style.color = '#f1f5f9';
+        } else {
+            body.style.backgroundColor = 'white';
+            body.style.color = 'black';
+        }
+    }
+
+    function filterProducts() {
+        console.log("Filtering products...");
+    }
+</script>
+<script>
+    // Kodi JavaScript për funksionin filterProducts
+    function filterProducts() {
+        const priceFilter = document.getElementById("priceFilter").value;
+        const brandFilter = document.getElementById("brandFilter").value;
+        const popularityFilter = document.getElementById("popularityFilter").value;
+        const searchTerm = document.getElementById("searchBar").value.toLowerCase();
+
+        let filteredProducts = allProducts;
+
+        // Filtro sipas çmimit
+        if (priceFilter === "low") {
+            filteredProducts = filteredProducts.filter(product => product.price < 50);
+        } else if (priceFilter === "medium") {
+            filteredProducts = filteredProducts.filter(product => product.price >= 50 && product.price <= 100);
+        } else if (priceFilter === "high") {
+            filteredProducts = filteredProducts.filter(product => product.price > 100);
+        } else if (priceFilter === "asc") {
+            filteredProducts.sort((a, b) => a.price - b.price);
+        } else if (priceFilter === "desc") {
+            filteredProducts.sort((a, b) => b.price - a.price);
+        }
+
+        // Filtro sipas markës
+        if (brandFilter !== "all") {
+            filteredProducts = filteredProducts.filter(product => product.brand === brandFilter);
+        }
+
+        // Filtro sipas popullaritetit
+        if (popularityFilter === "top") {
+            filteredProducts = filteredProducts.filter(product => product.rating >= 4);
+        }
+
+        // Filtro sipas kërkimit
+        if (searchTerm) {
+            filteredProducts = filteredProducts.filter(product =>
+                product.name.toLowerCase().includes(searchTerm)
+            );
+        }
+
+        // Shfaq produktet e filtruara
+        renderProducts(filteredProducts);
+    }
+
+    function renderProducts(products) {
+        const productsGrid = document.getElementById("productsGrid");
+        productsGrid.innerHTML = "";
+
+        products.forEach(product => {
+            const productCard = `
+                <div class="product-card">
+                    <div class="discount">${product.discount}%</div>
+                    <img src="${product.image}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p><strong>Brand:</strong> ${product.brand}</p>
+                    <p><span class="old-price">$${product.oldPrice}</span> $${product.price}</p>
+                    <p>${product.description}</p>
+                    <button onclick="addToCart('${product.name}', ${product.price})">Add to Cart</button>
+                </div>
+            `;
+            productsGrid.innerHTML += productCard;
+        });
+    }
+
+    const allProducts = [
+        {
+            name: "Coco Mademoiselle",
+            brand: "Chanel",
+            price: 120,
+            oldPrice: 150,
+            discount: 20,
+            image: "https://via.placeholder.com/150",
+            description: "A timeless classic with floral notes.",
+            rating: 5
+        },
+        {
+            name: "Bleu de Chanel",
+            brand: "Chanel",
+            price: 170,
+            oldPrice: 200,
+            discount: 15,
+            image: "https://via.placeholder.com/150",
+            description: "A fresh and woody fragrance for men.",
+            rating: 4
+        },
+        // Shto të gjithë produktet këtu
+    ];
+</script>
+
+</body>
+</html>

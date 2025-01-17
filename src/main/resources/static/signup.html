@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - AromaSphere</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #0f172a;
+            color: #f1f5f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .signup-container {
+            background-color: #1e293b;
+            padding: 30px 50px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            width: 400px;
+        }
+
+        .signup-container h2 {
+            text-align: center;
+            color: #38bdf8;
+            margin-bottom: 20px;
+        }
+
+        .signup-container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .signup-container form label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #e2e8f0;
+        }
+
+        .signup-container form input,
+        .signup-container form select {
+            margin-bottom: 15px;
+            padding: 10px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            background-color: #0f172a;
+            color: #f1f5f9;
+        }
+
+        .signup-container form input::placeholder {
+            color: #94a3b8;
+        }
+
+        .signup-container form button {
+            padding: 10px;
+            background-color: #38bdf8;
+            color: #0f172a;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+
+        .signup-container form button:hover {
+            background-color: #0ea5e9;
+        }
+
+        .signup-container .back-link {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .signup-container .back-link a {
+            text-decoration: none;
+            color: #38bdf8;
+        }
+
+        .signup-container .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: #f87171;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .success-message {
+            color: #34d399;
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="signup-container">
+    <h2>Sign Up</h2>
+    <form id="signupForm">
+        <div id="errorContainer" class="error-message"></div>
+
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Enter your username" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required>
+
+        <label for="role">Role</label>
+        <select id="role" required>
+            <option value="">Select your role</option>
+            <option value="USER">User</option>
+            <option value="ADMIN">Admin</option>
+        </select>
+
+        <button type="submit">Register</button>
+    </form>
+    <div id="successMessage" class="success-message" style="display: none;">
+        Registration successful! Redirecting to login...
+    </div>
+    <div class="back-link">
+        <a href="index.html">Back to Home</a>
+    </div>
+</div>
+<script type="module">
+    import { registerUser } from './api.js';
+
+    document.getElementById("signupForm").addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const username = document.getElementById("username").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
+        const role = document.getElementById("role").value;
+        const errorContainer = document.getElementById("errorContainer");
+        const successMessage = document.getElementById("successMessage");
+
+        errorContainer.textContent = "";
+
+        if (!username || !email || !password || !role) {
+            errorContainer.textContent = "All fields are required!";
+            return;
+        }
+
+        try {
+            const response = await registerUser({ username, email, password, role });
+
+            successMessage.style.display = "block";
+            setTimeout(() => {
+                window.location.href = "login.html";
+            }, 2000);
+        } catch (error) {
+            errorContainer.textContent = error.message || "Registration failed. Please try again.";
+        }
+    });
+</script>
+</body>
+</html>
